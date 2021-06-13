@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sindiary/note_details_edit.dart';
 
 import 'home.dart';
 
@@ -135,7 +136,14 @@ class NoteDetails extends StatelessWidget {
         ),
         child: FloatingActionButton(
           child: Icon(Icons.edit),
-          onPressed: null,
+          onPressed: (){
+             Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          NoteDetailsEdit(id,),
+                    ));
+          },
         ),
       ),
     );
