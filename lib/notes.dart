@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sindiary/add_note.dart';
 import 'package:sindiary/note_thumbnail.dart';
 
 class NotesUI extends StatefulWidget {
@@ -51,6 +52,21 @@ class _NotesUIState extends State<NotesUI> {
           ),
         ),
       ),
-    );
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height * 0.075,
+        ),
+        child: FloatingActionButton(
+          child: Icon(Icons.add_circle),
+          onPressed: (){
+             Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AddNote(),
+                    ));
+          },
+        )
+    ));
   }
 }

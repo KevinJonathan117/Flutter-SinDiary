@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sindiary/notes.dart';
 
 import 'home.dart';
 
@@ -9,11 +10,15 @@ class NoteDetailsEdit extends StatefulWidget {
   NoteDetailsEdit(this.id);
 
   @override
-  _NoteDetailsEditState createState() => _NoteDetailsEditState();
+  _NoteDetailsEditState createState() => _NoteDetailsEditState(this.id);
 }
 
 class _NoteDetailsEditState extends State<NoteDetailsEdit> {
   TextEditingController _controllerIsi = TextEditingController();
+  final String id;
+  _NoteDetailsEditState(this.id);
+
+  String jdl = "";
 
   CollectionReference diaries =
       FirebaseFirestore.instance.collection('diaries');
@@ -24,6 +29,28 @@ class _NoteDetailsEditState extends State<NoteDetailsEdit> {
         .delete()
         .then((value) => print("Diary Deleted"))
         .catchError((error) => print("Failed to delete diary: $error"));
+  }
+
+  Future<void> updateNote() {
+    print('cek judul:' + jdl);
+    var now = new DateTime.now();
+
+    return diaries
+        .doc(id)
+        .update({'isi': _controllerIsi.text, 'tanggal': now}).then((value) {
+      print("Note Updated");
+      _controllerIsi.text = "";
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => NotesUI()));
+    }).catchError((error) => print("Failed to update user: $error"));
+
+    // return diaries
+    //     .add({'judul': jdl, 'isi': _controllerIsi.text, 'tanggal': now}).then(
+    //         (value) {
+    //   print("Note Updated");
+    //   _controllerIsi.text = "";
+    //   Navigator.pop(context);
+    // }).catchError((error) => print("Failed to add user: $error"));
   }
 
   @override
@@ -85,6 +112,9 @@ class _NoteDetailsEditState extends State<NoteDetailsEdit> {
             if (snapshot.connectionState == ConnectionState.done) {
               Map<String, dynamic> data =
                   snapshot.data!.data() as Map<String, dynamic>;
+
+              jdl = data['judul'];
+
               String creationTime = DateTime.fromMicrosecondsSinceEpoch(
                       data['tanggal'].seconds * 1000000)
                   .toString();
@@ -141,8 +171,9 @@ class _NoteDetailsEditState extends State<NoteDetailsEdit> {
           bottom: MediaQuery.of(context).size.height * 0.075,
         ),
         child: FloatingActionButton(
-          child: Icon(Icons.edit),
-          onPressed: null,
+          backgroundColor: Colors.green,
+          child: Icon(Icons.check),
+          onPressed: updateNote,
         ),
       ),
     );
