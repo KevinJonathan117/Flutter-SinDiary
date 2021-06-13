@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sindiary/login.dart';
 
+import 'home.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
@@ -69,6 +71,6 @@ class _AppState extends State<App> {
       return CircularProgressIndicator();
     }
 
-    return LoginUI();
+    return HomeUI();
   }
 }

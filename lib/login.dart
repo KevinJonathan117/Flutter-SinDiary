@@ -101,47 +101,47 @@ class _LoginUIState extends State<LoginUI> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.1,
-            horizontal: MediaQuery.of(context).size.width * 0.1),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("SinDiary Login",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.0,
-                    color: Colors.grey[800])),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.25,
-            ),
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.person),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.1,
+              horizontal: MediaQuery.of(context).size.width * 0.1),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("SinDiary Login",
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0,
+                      color: Colors.grey[800])),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.25,
               ),
-              controller: _usernameController,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.01,
-            ),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-                prefixIcon: Icon(Icons.lock),
+              TextField(
+                obscureText: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.person),
+                ),
+                controller: _usernameController,
               ),
-              controller: _passwordController,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            SizedBox(
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
+              ),
+              TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                controller: _passwordController,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              SizedBox(
                 width: MediaQuery.of(context).size.height * 0.8,
                 height: MediaQuery.of(context).size.height * 0.05,
                 child: ElevatedButton(
@@ -165,8 +165,9 @@ class _LoginUIState extends State<LoginUI> {
                       elevation: MaterialStateProperty.all<double>(0),
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.blue)),
-                )),
-            SizedBox(
+                ),
+              ),
+              SizedBox(
                 width: MediaQuery.of(context).size.height * 0.8,
                 height: MediaQuery.of(context).size.height * 0.05,
                 child: ElevatedButton(
@@ -182,10 +183,12 @@ class _LoginUIState extends State<LoginUI> {
                       elevation: MaterialStateProperty.all<double>(0),
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.transparent)),
-                )),
-          ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
