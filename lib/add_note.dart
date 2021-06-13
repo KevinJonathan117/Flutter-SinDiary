@@ -1,5 +1,5 @@
 import 'dart:html';
-
+import 'login.dart' as loginCredentials;
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -14,7 +14,7 @@ class _AddNoteState extends State<AddNote> {
   TextEditingController judulnote = TextEditingController();
   TextEditingController isinote = TextEditingController();
 
-   CollectionReference diaries =
+  CollectionReference diaries =
       FirebaseFirestore.instance.collection('diaries');
 
   Widget formAdd() {
@@ -27,7 +27,8 @@ class _AddNoteState extends State<AddNote> {
           autofocus: true,
           decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: 'Judul', labelStyle: TextStyle(color: Colors.black)),
+              labelText: 'Judul',
+              labelStyle: TextStyle(color: Colors.black)),
         ),
         SizedBox(height: 20),
         TextFormField(
@@ -36,38 +37,34 @@ class _AddNoteState extends State<AddNote> {
           autofocus: true,
           decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: 'Isi', labelStyle: TextStyle(color: Colors.black)),
+              labelText: 'Isi',
+              labelStyle: TextStyle(color: Colors.black)),
         ),
         SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: saveNote,
-          child: Text("Save"))
+        ElevatedButton(onPressed: saveNote, child: Text("Save"))
       ],
     );
   }
 
-  Future<void> saveNote() {  
-      var now = new DateTime.now();   
-      return diaries
-          .add({
-            'judul': judulnote.text,
-            'isi': isinote.text, 
-            'tanggal': now 
-          })
-          .then((value) {
-             print("Note Added");
-             judulnote.text = "";
-             isinote.text = "";
-             Navigator.pop(context);
-          })
-          .catchError((error) => print("Failed to add user: $error"));
-    }
+  Future<void> saveNote() {
+    var now = new DateTime.now();
+    return diaries.add({
+      'judul': judulnote.text,
+      'isi': isinote.text,
+      'tanggal': now,
+      'user': loginCredentials.usernameSuccess
+    }).then((value) {
+      print("Note Added");
+      judulnote.text = "";
+      isinote.text = "";
+      Navigator.pop(context);
+    }).catchError((error) => print("Failed to add user: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        title: Text("")),
+        appBar: AppBar(title: Text("")),
         body: Container(
             margin: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height * 0.04,
