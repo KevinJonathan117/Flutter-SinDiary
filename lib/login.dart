@@ -39,13 +39,33 @@ class _LoginUIState extends State<LoginUI> {
           .signInWithEmailAndPassword(
               email: _usernameController.text,
               password: _passwordController.text);
-      print(userCredential);
-
-      usernameSuccess = _usernameController.text;
+      print(FirebaseAuth.instance.currentUser);
+      User? user = FirebaseAuth.instance.currentUser;
 
       Navigator.pop(loadingDialogContext!);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeUI()));
+
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text('Email Verification Required.'),
+            content: Text(
+                'We have sent a verification link to your email address. This process is only required on your first login attempt.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        usernameSuccess = _usernameController.text;
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomeUI()));
+      }
     } on FirebaseAuthException catch (e) {
       print(e.code);
 

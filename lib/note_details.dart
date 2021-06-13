@@ -133,7 +133,6 @@ class _NoteDetailsState extends State<NoteDetails> {
                 ],
               );
             }
-
             return CircularProgressIndicator();
           },
         ),
