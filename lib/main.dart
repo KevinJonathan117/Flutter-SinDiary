@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sindiary/login.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MaterialApp(home: Scaffold(body: Center(child: App()))));
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false, home: Scaffold(body: App())));
 }
 
 class App extends StatefulWidget {
@@ -67,6 +69,6 @@ class _AppState extends State<App> {
       return CircularProgressIndicator();
     }
 
-    return ElevatedButton(onPressed: signIn, child: Text("SignIn"));
+    return LoginUI();
   }
 }
