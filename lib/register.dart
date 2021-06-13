@@ -103,6 +103,23 @@ class _RegisterUIState extends State<RegisterUI> {
                 ],
               );
             });
+      } else if (e.code == 'invalid-email') {
+        await Future.delayed(Duration(seconds: 1));
+        Navigator.pop(loadingDialogContext!);
+        print('Invalid email.');
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text('Error'),
+            content: Text('Invalid email.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
       }
     } catch (e) {
       print(e);
