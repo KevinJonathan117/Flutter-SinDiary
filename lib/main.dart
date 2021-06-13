@@ -71,6 +71,6 @@ class _AppState extends State<App> {
       return CircularProgressIndicator();
     }
 
-    return HomeUI();
+    return LoginUI();
   }
 }

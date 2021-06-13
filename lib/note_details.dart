@@ -5,16 +5,24 @@ import 'package:sindiary/note_details_edit.dart';
 
 import 'home.dart';
 
-class NoteDetails extends StatelessWidget {
+class NoteDetails extends StatefulWidget {
   final String id;
   NoteDetails(this.id);
+
+  @override
+  _NoteDetailsState createState() => _NoteDetailsState(id);
+}
+
+class _NoteDetailsState extends State<NoteDetails> {
+  final String id;
+  _NoteDetailsState(this.id);
 
   CollectionReference diaries =
       FirebaseFirestore.instance.collection('diaries');
 
   Future<void> deleteDiary() {
     return diaries
-        .doc(id)
+        .doc(widget.id)
         .delete()
         .then((value) => print("Diary Deleted"))
         .catchError((error) => print("Failed to delete diary: $error"));
@@ -65,7 +73,7 @@ class NoteDetails extends StatelessWidget {
           top: MediaQuery.of(context).size.height * 0.02,
         ),
         child: FutureBuilder<DocumentSnapshot>(
-          future: diaries.doc(id).get(),
+          future: diaries.doc(widget.id).get(),
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -136,13 +144,14 @@ class NoteDetails extends StatelessWidget {
         ),
         child: FloatingActionButton(
           child: Icon(Icons.edit),
-          onPressed: (){
-             Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          NoteDetailsEdit(id,),
-                    ));
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NoteDetailsEdit(
+                    widget.id,
+                  ),
+                ));
           },
         ),
       ),

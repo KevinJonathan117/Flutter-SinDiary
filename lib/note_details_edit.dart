@@ -40,8 +40,8 @@ class _NoteDetailsEditState extends State<NoteDetailsEdit> {
         .update({'isi': _controllerIsi.text, 'tanggal': now}).then((value) {
       print("Note Updated");
       _controllerIsi.text = "";
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => NotesUI()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomeUI()));
     }).catchError((error) => print("Failed to update user: $error"));
 
     // return diaries

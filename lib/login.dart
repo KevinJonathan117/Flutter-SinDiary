@@ -4,6 +4,8 @@ import 'package:sindiary/register.dart';
 
 import 'home.dart';
 
+late String usernameSuccess;
+
 class LoginUI extends StatefulWidget {
   const LoginUI({Key? key}) : super(key: key);
 
@@ -38,6 +40,9 @@ class _LoginUIState extends State<LoginUI> {
               email: _usernameController.text,
               password: _passwordController.text);
       print(userCredential);
+
+      usernameSuccess = _usernameController.text;
+
       Navigator.pop(loadingDialogContext!);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomeUI()));
