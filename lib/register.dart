@@ -67,8 +67,10 @@ class _RegisterUIState extends State<RegisterUI> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                        "The password provided is too weak. Please try another password.")
+                    Flexible(
+                      child: Text(
+                          "The password provided is too weak. Please try another password."),
+                    )
                   ],
                 ),
                 actions: <Widget>[
