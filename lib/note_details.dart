@@ -90,47 +90,49 @@ class _NoteDetailsState extends State<NoteDetails> {
               String creationTime = DateTime.fromMicrosecondsSinceEpoch(
                       data['tanggal'].seconds * 1000000)
                   .toString();
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    child: Text(
-                      data['judul'],
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      child: Text(
+                        data['judul'],
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.035,
+                    ),
+                    Text(
+                      "Created at : " + creationTime,
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: Colors.grey,
                         ),
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.035,
-                  ),
-                  Text(
-                    "Created at : " + creationTime,
-                    style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.015,
+                    ),
+                    Text(
+                      data['isi'],
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 12,
+                        ),
                       ),
+                      textAlign: TextAlign.justify,
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.015,
-                  ),
-                  Text(
-                    data['isi'],
-                    style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
+                  ],
+                ),
               );
             }
             return CircularProgressIndicator();

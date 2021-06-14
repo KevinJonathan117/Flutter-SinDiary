@@ -2,6 +2,7 @@ import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 
 class AddNote extends StatefulWidget {
   const AddNote({Key? key}) : super(key: key);
@@ -31,14 +32,21 @@ class _AddNoteState extends State<AddNote> {
               labelStyle: TextStyle(color: Colors.black)),
         ),
         SizedBox(height: 20),
-        TextFormField(
-          controller: isinote,
-          keyboardType: TextInputType.text,
-          autofocus: true,
-          decoration: InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: 'Isi',
-              labelStyle: TextStyle(color: Colors.black)),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: TextFormField(
+            controller: isinote,
+            keyboardType: TextInputType.multiline,
+            autofocus: true,
+            minLines: 10,
+            maxLines: 10,
+            enableInteractiveSelection: true,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+          ),
         ),
         SizedBox(height: 20),
         ElevatedButton(onPressed: saveNote, child: Text("Save"))
