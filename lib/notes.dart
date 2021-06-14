@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sindiary/add_note.dart';
 import 'package:sindiary/note_thumbnail.dart';
-import 'login.dart' as loginCredentials;
 
 class NotesUI extends StatefulWidget {
   const NotesUI({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class NotesUI extends StatefulWidget {
 class _NotesUIState extends State<NotesUI> {
   final Stream<QuerySnapshot> _diariesStream = FirebaseFirestore.instance
       .collection('diaries')
-      .where('user', isEqualTo: loginCredentials.usernameSuccess)
+      .where('user', isEqualTo: FirebaseAuth.instance.currentUser!.email)
       .snapshots();
 
   @override

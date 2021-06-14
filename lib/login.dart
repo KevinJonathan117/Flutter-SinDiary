@@ -4,8 +4,6 @@ import 'package:sindiary/register.dart';
 
 import 'home.dart';
 
-late String usernameSuccess;
-
 class LoginUI extends StatefulWidget {
   const LoginUI({Key? key}) : super(key: key);
 
@@ -39,7 +37,7 @@ class _LoginUIState extends State<LoginUI> {
           .signInWithEmailAndPassword(
               email: _usernameController.text,
               password: _passwordController.text);
-      print(FirebaseAuth.instance.currentUser);
+      print(FirebaseAuth.instance.currentUser!.email);
       User? user = FirebaseAuth.instance.currentUser;
 
       Navigator.pop(loadingDialogContext!);
@@ -61,8 +59,6 @@ class _LoginUIState extends State<LoginUI> {
           ),
         );
       } else {
-        usernameSuccess = _usernameController.text;
-
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomeUI()));
       }

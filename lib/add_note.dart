@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'login.dart' as loginCredentials;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -52,7 +52,7 @@ class _AddNoteState extends State<AddNote> {
       'judul': judulnote.text,
       'isi': isinote.text,
       'tanggal': now,
-      'user': loginCredentials.usernameSuccess
+      'user': FirebaseAuth.instance.currentUser!.email
     }).then((value) {
       print("Note Added");
       judulnote.text = "";
