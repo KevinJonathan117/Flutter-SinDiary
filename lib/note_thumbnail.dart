@@ -20,7 +20,13 @@ class NoteThumbnail extends StatelessWidget {
           MediaQuery.of(context).size.width * 0.05,
         ),
         decoration: BoxDecoration(
-          color: Colors.amber[100],
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color.fromRGBO(29, 41, 54, 0.5),
+                Colors.blue.withOpacity(0.5)
+              ]),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -32,6 +38,7 @@ class NoteThumbnail extends StatelessWidget {
                 textStyle: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: Colors.red[50],
                 ),
               ),
             ),
@@ -43,6 +50,9 @@ class NoteThumbnail extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.justify,
+              style: TextStyle(
+                color: Colors.red[50],
+              ),
             ),
             // Text(DateTime.fromMicrosecondsSinceEpoch(tanggal.seconds * 1000000)
             //     .toString()),

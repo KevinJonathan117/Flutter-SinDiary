@@ -19,54 +19,66 @@ class _NotesUIState extends State<NotesUI> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-          margin: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.04,
-            horizontal: MediaQuery.of(context).size.width * 0.1,
-          ),
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.02,
-          ),
-          child: Center(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: _diariesStream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Something went wrong');
-                }
-
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                }
-
-                return ListView(
-                  children:
-                      snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Map<String, dynamic> data =
-                        document.data() as Map<String, dynamic>;
-                    String id = document.id;
-                    return NoteThumbnail(data['judul'], data['isi'], id);
-                  }).toList(),
-                );
-              },
-            ),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("backgrounds/bg1.jpg"),
+          fit: BoxFit.cover,
         ),
-        floatingActionButton: Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).size.height * 0.075,
+      ),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.04,
+              horizontal: MediaQuery.of(context).size.width * 0.1,
             ),
-            child: FloatingActionButton(
-              child: Icon(Icons.add_circle),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddNote(),
-                    ));
-              },
-            )));
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.02,
+            ),
+            child: Center(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _diariesStream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
+
+                  return ListView(
+                    children:
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data =
+                          document.data() as Map<String, dynamic>;
+                      String id = document.id;
+                      return NoteThumbnail(data['judul'], data['isi'], id);
+                    }).toList(),
+                  );
+                },
+              ),
+            ),
+          ),
+          floatingActionButton: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.075,
+              ),
+              child: FloatingActionButton(
+                backgroundColor: Color.fromRGBO(29, 41, 54, 1),
+                child: Icon(
+                  Icons.add_circle,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddNote(),
+                      ));
+                },
+              ))),
+    );
   }
 }
